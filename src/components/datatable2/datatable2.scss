@@ -23,17 +23,10 @@
     }
   }
 
-  .cellWithImg {
+  .cellWithObj {
     display: flex;
     align-items: center;
-
-    .cellImg {
-      width: 60px;
-      height: 50px;
-      border-radius: 10px;
-      object-fit: cover;
-      margin-right: 20px;
-    }
+    gap: 15px;
   }
 
   .cellWithStatus {

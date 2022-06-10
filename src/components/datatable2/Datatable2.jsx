@@ -1,4 +1,4 @@
-import "./datatable.scss";
+import "./datatable2.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -7,18 +7,20 @@ import { ref, getDownloadURL, listAll, deleteObject } from "firebase/storage";
 import { nanoid } from "nanoid";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Tick, MTLModel } from "react-3d-viewer";
+import benchViseMTL from "../../objectTest/benchVise.mtl";
 
 const Datatable = () => {
   const [data, setData] = useState([]);
-  const imageListRef = ref(storage, "images");
+  const objectListRef = ref(storage, "objects");
 
   useEffect(() => {
-    listAll(imageListRef).then((response) => {
+    listAll(objectListRef).then((response) => {
       response.items.map((item) => {
         getDownloadURL(item).then((url) => {
           setData((prev) => [
             ...prev,
-            { id: nanoid(4), name: item._location.path_.slice(7), url },
+            { id: nanoid(4), name: item._location.path_.slice(8), url },
           ]);
         });
       });
@@ -31,11 +33,11 @@ const Datatable = () => {
       storage,
       `${data
         .filter((item) => item.id === id)
-        .map((item) => `images/${item.name}`)}`
+        .map((item) => `objects/${item.name}`)}`
     );
     deleteObject(deleteRef)
       .then(() => {
-        toast.success("Image Deleted");
+        toast.success("Object Deleted");
       })
       .catch((err) => {
         toast.error("Something went wrong with deleting your file...");
@@ -45,13 +47,19 @@ const Datatable = () => {
   const userColumns = [
     { field: "id", headerName: "ID", width: 70 },
     {
-      field: "Image",
-      headerName: "Image",
+      field: "Object",
+      headerName: "Object",
       width: 300,
       renderCell: (params) => {
         return (
-          <div className="cellWithImg">
-            <img className="cellImg" src={params.row.url} alt="avatar" />
+          <div className="cellWithObj">
+            <MTLModel
+              width="60"
+              height="50"
+              src={params.row.url}
+              mtl={benchViseMTL}
+              texPath=""
+            />
             {params.row.name}
           </div>
         );
@@ -80,13 +88,14 @@ const Datatable = () => {
       },
     },
   ];
+
   return (
     <div className="datatable">
       <ToastContainer />
       <div className="datatableTitle">
-        Images
-        <Link to="/admin/images/newimage" className="link">
-          Add New Image
+        Objects
+        <Link to="/admin/images/newobject" className="link">
+          Add New Object (.obj + .mtl)
         </Link>
       </div>
       <DataGrid

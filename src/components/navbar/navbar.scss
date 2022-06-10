@@ -33,13 +33,22 @@
     .items {
       display: flex;
       align-items: center;
-
+      .logout {
+        margin-right: 10px;
+        text-decoration: none;
+        color: #ff9505;
+        font-size: 16px;
+        font-weight: 400;
+        border: 1px solid #ff9505;
+        padding: 5px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
       .item {
         display: flex;
         align-items: center;
         margin-right: 20px;
         position: relative;
-
         .icon {
           font-size: 20px;
           cursor: pointer;
