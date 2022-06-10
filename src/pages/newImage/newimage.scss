@@ -12,36 +12,31 @@
       padding: 10px;
       margin: 20px;
       display: flex;
-
+      gap: 50px;
       h1 {
         color: lightgray;
         font-size: 20px;
       }
 
       .left {
-        flex: 1;
-        text-align: center;
-
+        text-align: left;
         img {
-          width: 100px;
-          height: 100px;
-          border-radius: 50%;
+          width: 150px;
+          height: 150px;
+          border-radius: 5px;
           object-fit: cover;
         }
       }
 
       .right {
-        flex: 2;
-
+        display: flex;
         form {
           display: flex;
           flex-wrap: wrap;
-          gap: 30px;
-          justify-content: space-around;
-
+          gap: 35px;
+          align-items: center;
           .formInput {
-            width: 40%;
-
+            width: 25%;
             label {
               display: flex;
               align-items: center;
@@ -61,14 +56,15 @@
           }
 
           button {
-            width: 150px;
+            width: 100px;
             padding: 10px;
             border: none;
-            background-color: teal;
+            border-radius: 5px;
+            background-color: #ff9505;
             color: white;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 10px;
+            margin-left: 50px;
           }
         }
       }
