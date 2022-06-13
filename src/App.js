@@ -9,6 +9,11 @@ import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import { AuthContext } from "./context/AuthContext";
+import "./App.scss";
+import Home from "./pages/home/Home";
+import Artwork from "./pages/artwork/Artwork";
+import Contact from "./pages/contact/Contact";
+import About from "./pages/about/About";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -24,8 +29,12 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/">
+            <Route index element={<Home />} />
+            <Route path="artwork" element={<Artwork />} />
+            <Route path="about" element={<About />} />
+            <Route path="contact" element={<Contact />} />
             <Route path="login" element={<Login />} />
-            <Route path="/admin">
+            <Route path="admin">
               <Route
                 index
                 element={
@@ -46,11 +55,10 @@ function App() {
                 path="/admin/images/newimage"
                 element={
                   <RequireAuth>
-                    <NewObject inputs={userInputs} title={"Add New Image"} />
+                    <NewImage inputs={userInputs} title={"Add New Image"} />
                   </RequireAuth>
                 }
               />
-
               <Route
                 path="objects"
                 element={
@@ -60,7 +68,7 @@ function App() {
                 }
               />
               <Route
-                path="/admin/images/newobject"
+                path="/admin/objects/newobject"
                 element={
                   <RequireAuth>
                     <NewObject inputs={userInputs} title={"Add New Image"} />

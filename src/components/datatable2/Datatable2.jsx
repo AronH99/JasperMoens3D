@@ -20,7 +20,7 @@ const Datatable = () => {
         getDownloadURL(item).then((url) => {
           setData((prev) => [
             ...prev,
-            { id: nanoid(4), name: item._location.path_.slice(8), url },
+            { id: item.name.substring(0, 3) + nanoid(3), name: item.name, url },
           ]);
         });
       });
@@ -94,7 +94,7 @@ const Datatable = () => {
       <ToastContainer />
       <div className="datatableTitle">
         Objects
-        <Link to="/admin/images/newobject" className="link">
+        <Link to="/admin/objects/newobject" className="link">
           Add New Object (.obj + .mtl)
         </Link>
       </div>

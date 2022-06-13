@@ -1,0 +1,156 @@
+.jm__navbar {
+  position: fixed;
+  width: 300px;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #3a405a;
+  border-right: 8px solid #cfccd6;
+}
+
+.jm__navbar-links {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  border-bottom: 8px solid #cfccd6;
+}
+
+.jm__navbar-links_logo {
+  display: flex;
+  align-self: center;
+}
+
+.jm__navbar-links_logo img {
+  width: 200px;
+  height: 150px;
+}
+
+.jm__navbar-links_container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 30px;
+}
+
+.jm__navbar-sign {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.backgroundHoverNavbar {
+  width: 100%;
+  &:hover {
+    background-color: #cfccd6;
+  }
+  &:last-child {
+    margin-bottom: 20px;
+  }
+}
+.jm__navbar-links_container p,
+.jm__navbar-sign p,
+.jm__navbar-menu_container p {
+  font-weight: 500;
+  font-size: 25px;
+  line-height: 25px;
+  text-transform: capitalize;
+  margin: 0 1rem;
+  color: #cfccd6;
+  text-decoration: none;
+  width: 100%;
+  &:hover {
+    color: #ff9505;
+  }
+}
+
+.jm__navbar-sign button,
+.jm__navbar-menu_container button {
+  padding: 0.5rem 1rem;
+  color: #fff;
+  background: #d90429;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 25px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.jm__navbar-menu {
+  margin-left: 1rem;
+
+  display: none;
+  position: relative;
+}
+
+.jm__navbar-menu svg {
+  cursor: pointer;
+}
+
+.jm__navbar-menu_container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  flex-direction: column;
+  text-align: end;
+  background-color: #ff9505;
+  padding: 2rem;
+  position: absolute;
+  right: 0;
+  top: 40px;
+  margin-top: 1rem;
+  min-width: 210px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+}
+
+.jm__navbar-menu_container p {
+  margin: 1rem 0;
+  color: #cfccd6;
+  &:hover {
+    color: #55868c;
+  }
+}
+
+.jm__navbar-menu_container-links-sign {
+  display: none;
+}
+
+@media screen and (max-width: 1000px) {
+  .jm__navbar {
+    display: flex;
+    position: relative;
+    border: none;
+    align-items: center;
+  }
+  .jm__navbar-links {
+    border: none;
+    flex-direction: row;
+    width: 100%;
+    &_logo {
+      display: block;
+    }
+  }
+  .jm__navbar-links_container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 8px solid #cfccd6;
+  }
+  .backgroundHoverNavbar:last-child {
+    margin-bottom: 0px;
+  }
+  .bodyArtwork {
+    left: 0 !important;
+    width: inherit !important;
+    margin-top: 40px;
+  }
+  .jm__navbar-links_container p,
+  .jm__navbar-sign p,
+  .jm__navbar-menu_container p {
+    font-size: 35px;
+  }
+}

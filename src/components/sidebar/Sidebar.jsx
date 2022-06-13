@@ -1,5 +1,6 @@
 import "./sidebar.scss";
 import ImageIcon from "@mui/icons-material/Image";
+import DataObjectIcon from "@mui/icons-material/DataObject";
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
@@ -25,7 +26,7 @@ const Sidebar = () => {
           </Link>
           <Link to="/admin/objects" style={{ textDecoration: "none" }}>
             <li>
-              <ImageIcon className="icon" />
+              <DataObjectIcon className="icon" />
               <span>Objects</span>
             </li>
           </Link>
