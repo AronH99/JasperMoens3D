@@ -6,7 +6,7 @@ const ProgressBar = ({ bgcolor, progress, height }) => {
     height: "100%",
     width: `${progress}%`,
     backgroundColor: bgcolor,
-    borderRadius: 40,
+    borderRadius: 0,
     display: "flex",
     alignItems: "center",
   };

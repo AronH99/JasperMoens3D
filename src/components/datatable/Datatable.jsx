@@ -18,7 +18,7 @@ const Datatable = () => {
         getDownloadURL(item).then((url) => {
           setData((prev) => [
             ...prev,
-            { id: nanoid(4), name: item._location.path_.slice(7), url },
+            { id: item.name.substring(0, 2) + nanoid(3), name: item.name, url },
           ]);
         });
       });

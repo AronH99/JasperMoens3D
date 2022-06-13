@@ -5,7 +5,7 @@
   .datatableTitle {
     width: 100%;
     font-size: 24px;
-    color: gray;
+    color: #cfccd6 !important;
     margin-bottom: 10px;
     display: flex;
     align-items: center;
@@ -75,4 +75,11 @@
       cursor: pointer;
     }
   }
+}
+
+.MuiDataGrid-cell {
+  color: #cfccd6;
+}
+.MuiDataGrid-columnHeaders {
+  color: #cfccd6;
 }
