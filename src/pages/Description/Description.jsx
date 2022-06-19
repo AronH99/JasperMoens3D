@@ -9,6 +9,7 @@ import {
   collection,
   serverTimestamp,
   updateDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import { auth, db, storage } from "../../firebase";
 import Navbar from "../../components/navbar/Navbar";
@@ -18,6 +19,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import Stack from "@mui/material/Stack";
 import { ToastContainer, toast } from "react-toastify";
 import { nanoid } from "nanoid";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const Description = () => {
   const [descriptionData, setDescriptionData] = useState({});
@@ -29,28 +31,34 @@ const Description = () => {
   const [addNewDescription, setAddNewDescription] = useState();
   const [submitNewTitle, setSubmitNewTitle] = useState();
   const [submitNewDescription, setSubmitNewDescription] = useState();
+  const [triggerSubmit, setTriggerSubmit] = useState(false);
 
   //Create New Document
   useEffect(() => {
     const setDocs = async () => {
+      setAllOptionsForDocuments([]);
       if (submitNewTitle && submitNewDescription) {
-        await setDoc(
-          doc(
-            db,
-            "JaspiTexts",
-            submitNewTitle.toLowerCase().trim().replace(/\s+/g, "")
-          ),
-          {
-            name: submitNewTitle.toLowerCase().trim().replace(/\s+/g, ""),
-            comment: submitNewDescription,
-            id: nanoid(4),
-          }
-        );
-        toast.success("New Description has been added");
+        try {
+          await setDoc(
+            doc(
+              db,
+              "JaspiTexts",
+              submitNewTitle.toLowerCase().trim().replace(/\s+/g, "")
+            ),
+            {
+              name: submitNewTitle.trim(),
+              comment: submitNewDescription,
+              id: nanoid(4),
+            }
+          );
+          toast.success("New Description has been added");
+        } catch {
+          toast.error("Something went wrong adding the new Description...");
+        }
       }
     };
     setDocs();
-  }, [submitNewTitle, submitNewDescription]);
+  }, [submitNewTitle, submitNewDescription, triggerSubmit]);
 
   //Get All Documents
   useEffect(() => {
@@ -61,7 +69,7 @@ const Description = () => {
       });
     };
     getAllDocsFromFireBase();
-  }, [submitNewTitle, submitNewDescription]);
+  }, [submitNewTitle, submitNewDescription, triggerSubmit]);
 
   //Get Specific Document
   useEffect(() => {
@@ -80,19 +88,25 @@ const Description = () => {
   //Update Specific Document
   useEffect(() => {
     (async () => {
-      const updateRef = doc(db, "JaspiTexts", value);
-      if (value && updateTitle) {
-        await updateDoc(updateRef, {
-          name: updateTitle,
-        });
-        toast.success("Title has been updated");
-        setUpdateTitle();
-      } else if (value && updateDescription) {
-        await updateDoc(updateRef, {
-          comment: updateDescription,
-        });
-        toast.success("Description has been updated");
-        setUpdateDescription();
+      if (value) {
+        try {
+          const updateRef = doc(db, "JaspiTexts", value);
+          if (value && updateTitle) {
+            await updateDoc(updateRef, {
+              name: updateTitle,
+            });
+            toast.success("Title has been updated");
+            setUpdateTitle();
+          } else if (value && updateDescription) {
+            await updateDoc(updateRef, {
+              comment: updateDescription,
+            });
+            toast.success("Description has been updated");
+            setUpdateDescription();
+          }
+        } catch {
+          toast.error("Something went wrong with updating the description");
+        }
       }
     })();
   }, [updateTitle, updateDescription]);
@@ -111,6 +125,7 @@ const Description = () => {
               e.preventDefault();
               setSubmitNewDescription(addNewDescription);
               setSubmitNewTitle(addNewTitle);
+              setTriggerSubmit(!triggerSubmit);
             }}
           >
             <label className="labelDescription">
@@ -121,6 +136,8 @@ const Description = () => {
                 onChange={(e) => {
                   setAddNewTitle(e.target.value);
                 }}
+                placeholder="Give in the right name according to your other
+                file uploads..."
               />
             </label>
             <label className="labelDescription">
@@ -130,6 +147,7 @@ const Description = () => {
                 onChange={(e) => {
                   setAddNewDescription(e.target.value);
                 }}
+                placeholder="Some text about how great Malenia is... :)"
               />
             </label>
             <button type="submit" className="descriptionButton">
@@ -157,27 +175,64 @@ const Description = () => {
               </Stack>
             </>
           )}
-          {descriptionData && (
+          {descriptionData?.id?.length > 0 && (
+            <div key={descriptionData?.id} className="flexTitleAndComment">
+              <h2
+                className="h2metminderlineheight"
+                onBlur={(e) => {
+                  setUpdateTitle(e.target.innerText);
+                }}
+                contentEditable={true}
+              >
+                {descriptionData?.name}
+              </h2>
+              <p
+                className="comment"
+                onBlur={(e) => {
+                  setUpdateDescription(e.target.innerText);
+                }}
+                contentEditable={true}
+              >
+                {descriptionData?.comment}
+              </p>
+            </div>
+          )}
+
+          {allOptionsForDocuments.length > 0 && (
             <>
-              <div id={descriptionData.id} className="flexTitleAndComment">
-                <h2
-                  className="h2metminderlineheight"
-                  onBlur={(e) => {
-                    setUpdateTitle(e.target.innerText);
-                  }}
-                  contentEditable={true}
-                >
-                  {descriptionData.name}
-                </h2>
-                <p
-                  className="comment"
-                  onBlur={(e) => {
-                    setUpdateDescription(e.target.innerText);
-                  }}
-                  contentEditable={true}
-                >
-                  {descriptionData.comment}
-                </p>
+              <h2 className="updateDocumentTitle">Delete Description</h2>
+              <div className="DeleteDescriptionSection">
+                {allOptionsForDocuments.map(({ name, id }) => (
+                  <ul key={id} className="flexitemanddelete">
+                    <li className="liStyling">{name} </li>
+                    <DeleteIcon
+                      onClick={(e) => {
+                        (async () => {
+                          try {
+                            await deleteDoc(
+                              doc(
+                                db,
+                                "JaspiTexts",
+                                name.toLowerCase().trim().replace(/\s+/g, "")
+                              )
+                            );
+                            setAllOptionsForDocuments(
+                              allOptionsForDocuments.filter(
+                                (option) => option.name !== name
+                              )
+                            );
+                            setDescriptionData({});
+                            toast.success("Description Deleted");
+                          } catch {
+                            toast.error(
+                              "Something went wrong with deleting the description "
+                            );
+                          }
+                        })();
+                      }}
+                    />
+                  </ul>
+                ))}
               </div>
             </>
           )}

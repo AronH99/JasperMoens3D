@@ -1,46 +1,73 @@
-.flex2d {
+.flex2ddetails {
   display: flex;
   flex-wrap: wrap;
   width: calc(100vw - 300px);
   left: 300px;
   position: relative;
-  align-items: center;
   justify-content: center;
+  gap: 50px;
+  flex-direction: row;
+}
+.img2ddetails {
+  max-width: 100%;
+  object-fit: cover !important;
+  object-position: center !important;
+  max-height: 70vh;
 }
 .fleximages2D {
   display: flex;
   flex: 1 1 300px;
   flex-wrap: wrap;
+  justify-content: center;
 }
-.img2d {
-  width: 100% !important;
-  aspect-ratio: 1 !important;
-  object-fit: cover !important;
-  object-position: center !important;
+.carouselDetail {
+  left: 0 !important;
+  width: calc(70% - 35px);
 }
 h2 {
   color: #cfccd6;
 }
-.mainName {
+.mainNamedetails {
   width: calc(100vw - 300px);
   left: 300px;
   position: relative;
   display: flex;
   align-self: center;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  color: #ff9505;
+}
+.commentaarData {
+  color: #cfccd6;
+  font-size: 20px;
+  width: calc(30% - 35px);
+  margin-right: 20px;
 }
 @media screen and (max-width: 1000px) {
-  .flex2d {
-    width: 100%;
-    left: 0px;
+  .flex2ddetails {
+    left: 150px;
   }
-  .mainName {
+  .mainNamedetails {
     width: 100%;
     left: 0px;
     position: relative;
     display: flex;
     align-self: center;
     justify-content: center;
+  }
+  .commentaarData {
+    width: 100% !important;
+    max-width: 100%;
+    margin-right: 0px;
+    margin-left: 10px;
+    margin-bottom: 2rem;
+  }
+  .img2ddetails {
+    width: 100% !important;
+    max-width: 100%;
+  }
+  .carouselDetail {
+    margin-top: 0px;
   }
 }

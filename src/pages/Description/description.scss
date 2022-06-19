@@ -12,7 +12,7 @@
 }
 .flexTitleAndComment {
   margin: 0 1rem;
-  margin-bottom: 10rem;
+  margin-bottom: 3rem;
 }
 .comment {
   font-size: 20px !important;
@@ -25,11 +25,13 @@
 .updateDocumentTitle {
   margin: 0rem 1rem;
   margin-bottom: 1rem;
+  color: #ff9505;
 }
 .updateDocumentTitle2 {
   margin: 0rem 1rem;
   margin-top: 1rem;
   margin-bottom: 2rem;
+  color: #ff9505;
 }
 .formMakeNewDescription {
   display: flex;
@@ -69,6 +71,27 @@
 }
 .widthP {
   width: 100px;
+}
+.DeleteDescriptionSection {
+  margin: 0 1rem;
+  margin-bottom: 5rem;
+}
+.liStyling {
+  color: #cfccd6;
+  font-size: 23px;
+  list-style: none;
+}
+.flexitemanddelete {
+  color: #cfccd6;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+.css-i4bv87-MuiSvgIcon-root {
+  &:hover {
+    color: #d90429;
+    cursor: pointer;
+  }
 }
 .css-1sumxir-MuiFormLabel-root-MuiInputLabel-root {
   color: #cfccd6 !important;

@@ -5,11 +5,17 @@ import { nanoid } from "nanoid";
 import "./TwoDArtDetails.scss";
 import NavbarMain from "../../components/navbarMain/NavbarMain";
 import { useParams } from "react-router";
+import { db } from "../../firebase";
+import { doc, getDoc } from "firebase/firestore";
+import { CCarouselItem } from "@coreui/react";
+import { CCarousel } from "@coreui/react";
+import { CImage } from "@coreui/react";
 
 const TwoDArtDetails = () => {
   const [data, setData] = useState([]);
   const imageListRef = ref(storage, "2D");
   const { name } = useParams();
+  const [documentData, setDocumentData] = useState({});
 
   useEffect(() => {
     listAll(imageListRef).then((response) => {
@@ -29,19 +35,47 @@ const TwoDArtDetails = () => {
         });
     });
   }, []);
+
+  useEffect(() => {
+    if (name) {
+      const getDocsFromFireBase = async () => {
+        const docRef = doc(db, "JaspiTexts", name);
+        const docSnap = await getDoc(docRef);
+        docSnap.exists()
+          ? setDocumentData(docSnap.data())
+          : console.log("No such document!");
+      };
+      getDocsFromFireBase();
+    }
+  }, []);
+
   return (
     <>
       <NavbarMain />
-      <h2 className="mainName">{name}</h2>
-      <div className="flex2d">
-        {data.length > 0 &&
+      <h2 className="mainNamedetails">{documentData?.name}</h2>
+      <div className="flex2ddetails">
+        {data.length > 1 && (
+          <CCarousel
+            indicators={true}
+            controls={true}
+            transition="crossfade"
+            className="carouselDetail"
+          >
+            {data.length > 1 &&
+              data.map(({ id, url }) => (
+                <CCarouselItem key={id}>
+                  <CImage className="img2ddetails" src={url} alt={name} />
+                </CCarouselItem>
+              ))}
+          </CCarousel>
+        )}
+        {data.length === 1 &&
           data.map(({ id, url }) => (
-            <>
-              <div className="fleximages2D" key={id}>
-                <img className="img2d" src={url} alt={name} />
-              </div>
-            </>
+            <div key={id} className="fleximages2D">
+              <img className="img2ddetails" src={url} alt={name} />
+            </div>
           ))}
+        <p className="commentaarData">{documentData?.comment}</p>
       </div>
     </>
   );

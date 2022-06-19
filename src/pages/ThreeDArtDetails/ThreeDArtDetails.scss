@@ -2,53 +2,65 @@
   color: #cfccd6;
   display: flex;
   position: relative;
-  left: 350px;
-  width: calc(100% - 150px);
-  align-items: center;
+  left: 300px;
+  width: calc(100% - 300px);
 }
 canvas {
   border-radius: 10px;
+  width: 750px !important;
+  height: 750px !important;
 }
-.widthCanvas {
+.flexCanvasAndText {
   display: flex;
-  flex-direction: row;
+  gap: 30px;
+  align-items: start;
+  justify-content: start;
+}
+.text3drender {
+  font-size: 20px;
+  margin-right: 30px;
 }
 .mainName3D {
-  width: calc(100vw - 300px);
-  left: 350px;
+  width: calc(100% - 300px);
+  left: 300px;
   position: relative;
   display: flex;
-  align-self: center;
+  align-items: center;
   justify-content: center;
   margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+@media screen and (max-width: 1400px) {
+  canvas {
+    width: 550px !important;
+    height: 550px !important;
+  }
 }
 
 @media screen and (max-width: 1000px) {
   .bodyArtwork2 {
     left: 0;
-    position: relative;
     width: 100%;
     margin-top: 20px;
-    align-self: center;
-    justify-content: center;
-    align-items: center;
-  }
-  .widthCanvas {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+    display: contents;
   }
   canvas {
-    width: 100%;
+    width: 750px !important;
+    height: 750px !important;
   }
   .mainName3D {
     width: 100%;
     left: 0px;
-    position: relative;
-    display: flex;
-    align-self: center;
+  }
+  .flexCanvasAndText {
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
+  }
+  .text3drender {
+    font-size: 25px;
+    margin-right: 2rem;
+    margin-left: 2rem;
   }
 }
