@@ -28,7 +28,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar">
+    <div className="navbar2">
       <div className="wrapper">
         <div className="items">
           <button className="logout" onClick={handleLogout}>

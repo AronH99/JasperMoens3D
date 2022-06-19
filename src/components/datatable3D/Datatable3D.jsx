@@ -1,4 +1,4 @@
-import "./datatable.scss";
+import "./datatable3D.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -7,18 +7,20 @@ import { ref, getDownloadURL, listAll, deleteObject } from "firebase/storage";
 import { nanoid } from "nanoid";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Tick, MTLModel } from "react-3d-viewer";
+import benchViseMTL from "../../objectTest/benchVise.mtl";
 
 const Datatable = () => {
   const [data, setData] = useState([]);
-  const imageListRef = ref(storage, "images");
+  const objectListRef = ref(storage, "3D");
 
   useEffect(() => {
-    listAll(imageListRef).then((response) => {
+    listAll(objectListRef).then((response) => {
       response.items.map((item) => {
         getDownloadURL(item).then((url) => {
           setData((prev) => [
             ...prev,
-            { id: item.name.substring(0, 2) + nanoid(3), name: item.name, url },
+            { id: item.name.substring(0, 3) + nanoid(3), name: item.name, url },
           ]);
         });
       });
@@ -31,11 +33,11 @@ const Datatable = () => {
       storage,
       `${data
         .filter((item) => item.id === id)
-        .map((item) => `images/${item.name}`)}`
+        .map((item) => `3D/${item.name}`)}`
     );
     deleteObject(deleteRef)
       .then(() => {
-        toast.success("Image Deleted");
+        toast.success("3D Art Deleted");
       })
       .catch((err) => {
         toast.error("Something went wrong with deleting your file...");
@@ -45,16 +47,33 @@ const Datatable = () => {
   const userColumns = [
     { field: "id", headerName: "ID", width: 70 },
     {
-      field: "Image",
-      headerName: "Image",
+      field: "Object",
+      headerName: "Object",
       width: 300,
       renderCell: (params) => {
-        return (
-          <div className="cellWithImg">
-            <img className="cellImg" src={params.row.url} alt="avatar" />
-            {params.row.name}
-          </div>
-        );
+        if (params.row.name.includes(".obj")) {
+          return (
+            <div className="cellWithObj">
+              <MTLModel
+                width="60"
+                height="50"
+                src={params.row.url}
+                mtl={benchViseMTL}
+                texPath=""
+              />
+              {params.row.name}
+            </div>
+          );
+        } else if (params.row.name.includes(".mtl")) {
+          return <div className="cellWithObj">{params.row.name}</div>;
+        } else {
+          return (
+            <div className="cellWithImg">
+              <img className="cellImg" src={params.row.url} alt="avatar" />
+              {params.row.name}
+            </div>
+          );
+        }
       },
     },
   ];
@@ -80,13 +99,14 @@ const Datatable = () => {
       },
     },
   ];
+
   return (
     <div className="datatable">
       <ToastContainer />
       <div className="datatableTitle">
-        Images
-        <Link to="/admin/images/newimage" className="link">
-          Add New Image
+        3D Art
+        <Link to="/admin/3D/new3D" className="link">
+          Add 3D Art
         </Link>
       </div>
       <DataGrid

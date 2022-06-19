@@ -1,4 +1,4 @@
-import "./newobject.scss";
+import "./new3D.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
@@ -28,7 +28,10 @@ const New = ({ inputs, title }) => {
   useEffect(() => {
     const uploadFile = () => {
       //const name = new Date().getTime() + file.name;
-      const storageRef = ref(storage, `objects/${file.name}`);
+      const storageRef = ref(
+        storage,
+        `3D/${file.name.toLowerCase().trim().replace(/\s+/g, "")}`
+      );
       const uploadTask = uploadBytesResumable(storageRef, file);
 
       uploadTask.on(
@@ -52,32 +55,13 @@ const New = ({ inputs, title }) => {
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             setData((prev) => ({ ...prev, img: downloadURL }));
-            toast.success("Your file has been uploaded");
+            toast.success("Your 3D Art has been uploaded");
           });
         }
       );
     };
     file && uploadFile();
   }, [file]);
-
-  /* const handleInput = (e) => {
-    const id = e.target.id;
-    const value = e.target.value;
-    setData({ ...data, [id]: value });
-  }; */
-  /* 
-  const handleAdd = async (e) => {
-    e.preventDefault();
-    try {
-      const userLoginRef = doc(db, "usersUploadInfo", currentUser.uid);
-      await setDoc(doc(userLoginRef), {
-        ...data,
-        timeStamp: serverTimestamp(),
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  }; */
 
   return (
     <div className="new">
@@ -86,24 +70,14 @@ const New = ({ inputs, title }) => {
       <div className="newContainer">
         <Navbar />
         <div className="top">
-          <h1>Add New Object (.obj + .mtl)</h1>
+          <h1>Add 3D Art (.obj + .mtl + .png/.jpeg/.svg)(3)</h1>
         </div>
         <div className="bottom">
-          <div className="left">
-            <img
-              src={
-                file
-                  ? URL.createObjectURL(file)
-                  : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-              }
-              alt=""
-            />
-          </div>
           <div className="right">
             <form>
               <div className="formInput">
                 <label htmlFor="file">
-                  Object: <DriveFolderUploadOutlinedIcon className="icon" />
+                  3D: <DriveFolderUploadOutlinedIcon className="icon" />
                 </label>
                 <input
                   type="file"
@@ -114,19 +88,6 @@ const New = ({ inputs, title }) => {
                   style={{ display: "none" }}
                 />
               </div>
-
-              {/* {inputs.map((input) => (
-                <div className="formInput" key={input.id}>
-                  <label>{input.label}</label>
-                  <input
-                    id={input.id}
-                    type={input.type}
-                    placeholder={input.placeholder}
-                    onChange={handleInput}
-                  />
-                </div>
-              ))} */}
-              {/* <button onClick={notify}>Send</button> */}
             </form>
             <ProgressBar bgcolor="#FF9505" progress={progress} />
           </div>

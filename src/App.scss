@@ -1,3 +1,5 @@
+@import url("@coreui/coreui/dist/css/coreui.min.css");
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -8,6 +10,7 @@
 a {
   color: #cfccd6;
   text-decoration: none;
+  white-space: nowrap;
   &:hover {
     color: #ff9505;
   }
