@@ -69,7 +69,7 @@ const New = () => {
       <div className="newContainer">
         <Navbar />
         <div className="top">
-          <h1 className="h1"> Add 2D Art (.png/.jpeg/.svg)(1)</h1>
+          <h1 className="h1"> Add 2D Art (.png/.jpeg/.svg) (1)</h1>
         </div>
         <div className="bottom">
           <div className="left">

@@ -8,6 +8,8 @@ import { Tick, MTLModel } from "react-3d-viewer";
 import benchViseMTL from "../../objectTest/benchVise.mtl";
 import { useParams } from "react-router";
 import { Audio } from "react-loader-spinner";
+import { db } from "../../firebase";
+import { doc, getDoc } from "firebase/firestore";
 
 const ThreeDArt = () => {
   const objectListRef = ref(storage, "3D");
@@ -17,6 +19,7 @@ const ThreeDArt = () => {
   const [arrayLength, setArrayLength] = useState();
   const [counter, setCounter] = useState(0);
   const { name } = useParams();
+  const [documentData, setDocumentData] = useState({});
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -78,23 +81,37 @@ const ThreeDArt = () => {
     }
   }, [dataMtls, dataObjects]);
 
+  useEffect(() => {
+    if (name) {
+      const getDocsFromFireBase = async () => {
+        const docRef = doc(db, "JaspiTexts", name);
+        const docSnap = await getDoc(docRef);
+        docSnap.exists()
+          ? setDocumentData(docSnap.data())
+          : console.log("No such document!");
+      };
+      getDocsFromFireBase();
+    }
+  }, []);
+
   return (
     <>
       <NavbarMain />
-      <h2 className="mainName3D">{name}</h2>
+      <h2 className="mainName3D">{documentData?.name}</h2>
       <div className="bodyArtwork2">
         {totalData &&
           totalData?.map(({ mtl, obj }) => (
-            <div key={obj.id} className="widthCanvas">
+            <div key={obj.id} className="flexCanvasAndText">
               <MTLModel
-                width="800"
-                height="800"
+                width="750"
+                height="750"
                 src={obj.url}
                 mtl={mtl.url}
                 texPath=""
                 position={{ x: 0, y: 0, z: 0 }}
                 rotation={{ x: 0, y: counter, z: 0 }}
               />
+              <p className="text3drender">{documentData?.comment}</p>
             </div>
           ))}
       </div>
