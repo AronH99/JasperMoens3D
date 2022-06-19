@@ -1,22 +1,26 @@
-.carousel {
+.flex2d {
+  display: flex;
+  flex-wrap: wrap;
   width: calc(100vw - 300px);
   left: 300px;
   position: relative;
+  align-items: center;
+  justify-content: center;
 }
-.carousel-inner {
-  max-height: 120vh !important;
+.fleximages2D {
+  display: flex;
+  flex: 1 1 300px;
+  flex-wrap: wrap;
 }
-.imageCarousel {
+.img2d {
   width: 100% !important;
   aspect-ratio: 5/3 !important;
   object-fit: cover !important;
   object-position: center !important;
 }
 @media screen and (max-width: 1000px) {
-  .carousel {
-    position: relative;
-    left: 0;
+  .flex2d {
     width: 100%;
-    margin-top: 50px;
+    left: 0px;
   }
 }

@@ -4,7 +4,6 @@
 
   .newContainer {
     flex: 6;
-
     .top,
     .bottom {
       -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
@@ -16,6 +15,7 @@
       h1 {
         color: lightgray;
         font-size: 20px;
+        margin-bottom: 0;
       }
 
       .left {
@@ -40,7 +40,7 @@
             label {
               display: flex;
               align-items: center;
-              gap: 10px;
+              gap: 30px;
 
               .icon {
                 cursor: pointer;

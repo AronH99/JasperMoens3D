@@ -1,0 +1,46 @@
+.flex2d {
+  display: flex;
+  flex-wrap: wrap;
+  width: calc(100vw - 300px);
+  left: 300px;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+}
+.fleximages2D {
+  display: flex;
+  flex: 1 1 300px;
+  flex-wrap: wrap;
+}
+.img2d {
+  width: 100% !important;
+  aspect-ratio: 1 !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+h2 {
+  color: #cfccd6;
+}
+.mainName {
+  width: calc(100vw - 300px);
+  left: 300px;
+  position: relative;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+@media screen and (max-width: 1000px) {
+  .flex2d {
+    width: 100%;
+    left: 0px;
+  }
+  .mainName {
+    width: 100%;
+    left: 0px;
+    position: relative;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+  }
+}

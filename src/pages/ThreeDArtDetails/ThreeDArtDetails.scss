@@ -1,0 +1,54 @@
+.bodyArtwork2 {
+  color: #cfccd6;
+  display: flex;
+  position: relative;
+  left: 350px;
+  width: calc(100% - 150px);
+  align-items: center;
+}
+canvas {
+  border-radius: 10px;
+}
+.widthCanvas {
+  display: flex;
+  flex-direction: row;
+}
+.mainName3D {
+  width: calc(100vw - 300px);
+  left: 350px;
+  position: relative;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 1000px) {
+  .bodyArtwork2 {
+    left: 0;
+    position: relative;
+    width: 100%;
+    margin-top: 20px;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+  }
+  .widthCanvas {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  canvas {
+    width: 100%;
+  }
+  .mainName3D {
+    width: 100%;
+    left: 0px;
+    position: relative;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+}

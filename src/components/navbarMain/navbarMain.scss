@@ -5,14 +5,14 @@
   left: 0;
   height: 100%;
   background-color: #3a405a;
-  border-right: 8px solid #cfccd6;
+  border-right: 20px solid #cfccd6;
 }
 
 .jm__navbar-links {
   display: flex;
   flex-direction: column;
   gap: 50px;
-  border-bottom: 8px solid #cfccd6;
+  border-bottom: 20px solid #cfccd6;
 }
 
 .jm__navbar-links_logo {
@@ -58,6 +58,7 @@
   color: #cfccd6;
   text-decoration: none;
   width: 100%;
+  padding: 0.5rem;
   &:hover {
     color: #ff9505;
   }
@@ -80,9 +81,9 @@
 
 .jm__navbar-menu {
   margin-left: 1rem;
-
   display: none;
   position: relative;
+  margin-top: 40px;
 }
 
 .jm__navbar-menu svg {
@@ -100,15 +101,17 @@
   position: absolute;
   right: 0;
   top: 40px;
-  margin-top: 1rem;
-  min-width: 210px;
+  margin-top: 2rem;
+  min-width: 250px;
   border-radius: 5px;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  z-index: 3;
 }
 
 .jm__navbar-menu_container p {
-  margin: 1rem 0;
+  margin: 2rem 0;
   color: #cfccd6;
+  line-height: 35px;
   &:hover {
     color: #55868c;
   }
@@ -124,11 +127,15 @@
     position: relative;
     border: none;
     align-items: center;
+    width: 100%;
   }
   .jm__navbar-links {
+    display: flex;
     border: none;
     flex-direction: row;
     width: 100%;
+    gap: 20px;
+    justify-content: center;
     &_logo {
       display: block;
     }
@@ -137,8 +144,8 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 20px;
-    border-bottom: 8px solid #cfccd6;
+    gap: 8px;
+    border-bottom: 5px solid #cfccd6;
   }
   .backgroundHoverNavbar:last-child {
     margin-bottom: 0px;
@@ -152,5 +159,45 @@
   .jm__navbar-sign p,
   .jm__navbar-menu_container p {
     font-size: 35px;
+  }
+
+  .jm__navbar-links_container {
+    display: none;
+  }
+
+  .jm__navbar-menu {
+    display: flex;
+    align-items: center;
+  }
+  .backgroundHoverNavbar {
+    width: 100%;
+    padding: 0;
+    &:hover {
+      background-color: #ff9505;
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .jm__navbar {
+    padding: 2rem 4rem;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .jm__navbar {
+    padding: 2rem;
+  }
+
+  .jm__navbar-sign {
+    display: none;
+  }
+
+  .jm__navbar-menu_container {
+    top: 20px;
+  }
+
+  .jm__navbar-menu_container-links-sign {
+    display: block;
   }
 }

@@ -1,19 +1,24 @@
 import Login from "./pages/login/Login";
-import ListImages from "./pages/listImages/ListImages";
-import ListObjects from "./pages/listObjects/ListObjects";
-import NewImage from "./pages/newImage/NewImage";
-import NewObject from "./pages/newObject/NewObject";
+import List2D from "./pages/list2D/List2D";
+import List3D from "./pages/list3D/List3D";
+import New2D from "./pages/new2D/New2D";
+import New3D from "./pages/new3D/New3D";
 import { userInputs } from "./formSource";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import "./style/dark.scss";
+import "./dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import { AuthContext } from "./context/AuthContext";
 import "./App.scss";
 import Home from "./pages/home/Home";
-import Artwork from "./pages/artwork/Artwork";
+import ThreeDArt from "./pages/ThreeDArt/ThreeDArt";
+import TwoDArt from "./pages/TwoDArt/TwoDArt";
 import Contact from "./pages/contact/Contact";
 import About from "./pages/about/About";
+import VideoEditing from "./pages/videoEditing/VideoEditing";
+import Detail3D from "./pages/Detail3D/Detail3D";
+import Detail2D from "./pages/Detail2D/Detail2D";
+import Description from "./pages/Description/Description";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -30,48 +35,60 @@ function App() {
         <Routes>
           <Route path="/">
             <Route index element={<Home />} />
-            <Route path="artwork" element={<Artwork />} />
+            <Route path="2D" element={<TwoDArt />} />
+            <Route path="3D" element={<ThreeDArt />} />
+            <Route path="videoEditing" element={<VideoEditing />} />
             <Route path="about" element={<About />} />
             <Route path="contact" element={<Contact />} />
+            <Route path="/3D/detail/:name" element={<Detail3D />} />
+            <Route path="/2D/detail/:name" element={<Detail2D />} />
             <Route path="login" element={<Login />} />
             <Route path="admin">
               <Route
                 index
                 element={
                   <RequireAuth>
-                    <ListImages />
+                    <List2D />
                   </RequireAuth>
                 }
               />
               <Route
-                path="images"
+                path="2D"
                 element={
                   <RequireAuth>
-                    <ListImages />
+                    <List2D />
                   </RequireAuth>
                 }
               />
               <Route
-                path="/admin/images/newimage"
+                path="/admin/2D/new2D"
                 element={
                   <RequireAuth>
-                    <NewImage inputs={userInputs} title={"Add New Image"} />
+                    <New2D inputs={userInputs} />
                   </RequireAuth>
                 }
               />
               <Route
-                path="objects"
+                path="3D"
                 element={
                   <RequireAuth>
-                    <ListObjects />
+                    <List3D />
                   </RequireAuth>
                 }
               />
               <Route
-                path="/admin/objects/newobject"
+                path="/admin/3D/new3D"
                 element={
                   <RequireAuth>
-                    <NewObject inputs={userInputs} title={"Add New Image"} />
+                    <New3D inputs={userInputs} title={"Add 3D Art"} />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="description"
+                element={
+                  <RequireAuth>
+                    <Description />
                   </RequireAuth>
                 }
               />
