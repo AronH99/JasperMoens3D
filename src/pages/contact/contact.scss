@@ -1,0 +1,83 @@
+.contactContainer {
+  width: calc(100vw - 300px);
+  left: 300px;
+  color: #cfccd6 !important;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.kopTitelContact {
+  margin-top: 2rem;
+  font-size: 50px;
+  margin-bottom: 2rem;
+  color: #ff9505;
+  font-weight: 500;
+}
+.formContact {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+.inputcontact {
+  width: 40vw;
+  padding: 0.5rem;
+}
+.inputTextArea {
+  width: 40vw;
+  padding: 0.5rem;
+  height: 15vh;
+}
+.flexLabel {
+  display: flex;
+  align-items: left;
+  flex-direction: column;
+}
+.pLabel {
+  margin-bottom: 0;
+  width: 100px;
+  white-space: nowrap;
+  color: #ff9505;
+}
+.submitContact {
+  padding: 0.5rem;
+  width: 15vw;
+  color: #cfccd6;
+  background-color: #ff9505;
+}
+.shortExplanation {
+  max-width: 40vw;
+  font-size: 20px;
+  margin-bottom: 2rem;
+}
+@media screen and (max-width: 1000px) {
+  .contactContainer {
+    width: 100%;
+    left: 0px;
+  }
+  .inputcontact {
+    width: 50vw;
+  }
+  .inputTextArea {
+    width: 50vw;
+  }
+  .submitContact {
+    padding: 0.5rem;
+    width: 25vw;
+  }
+  .shortExplanation {
+    max-width: 50vw;
+    font-size: 18px;
+    margin-bottom: 2rem;
+  }
+  .kopTitelContact {
+    margin-bottom: 2rem;
+  }
+}
+@media screen and (max-width: 700px) {
+  .kopTitelContact {
+    margin-top: 0;
+  }
+}

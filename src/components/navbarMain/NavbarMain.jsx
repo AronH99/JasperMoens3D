@@ -3,6 +3,10 @@ import { RiMenu3Line, RiCloseLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import logo from "../../logo/logoJasper.png";
 import "./navbarMain.scss";
+import { FaArtstation } from "react-icons/fa";
+import { FaInstagram } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
+import { FaYoutube } from "react-icons/fa";
 
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -11,15 +15,18 @@ const Navbar = () => {
     <div className="jm__navbar">
       <div className="jm__navbar-links">
         <div className="jm__navbar-links_logo">
-          <img src={logo} alt="" />
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <img src={logo} alt="" />
+          </Link>
         </div>
+        <p className="dashed"></p>
         <div className="jm__navbar-links_container">
           <Link
             className="backgroundHoverNavbar"
             to="/"
             style={{ textDecoration: "none" }}
           >
-            <p>HOME</p>
+            <p>Home</p>
           </Link>
           <Link
             className="backgroundHoverNavbar"
@@ -40,14 +47,14 @@ const Navbar = () => {
             to="/about"
             style={{ textDecoration: "none" }}
           >
-            <p>ABOUT</p>
+            <p>About</p>
           </Link>
           <Link
             className="backgroundHoverNavbar"
             to="/contact"
             style={{ textDecoration: "none" }}
           >
-            <p>CONTACT</p>
+            <p>Contact</p>
           </Link>
         </div>
         <div className="jm__navbar-menu">
@@ -72,7 +79,7 @@ const Navbar = () => {
                   to="/"
                   style={{ textDecoration: "none" }}
                 >
-                  <p>HOME</p>
+                  <p>Home</p>
                 </Link>
                 <Link
                   className="backgroundHoverNavbar"
@@ -93,19 +100,48 @@ const Navbar = () => {
                   to="/about"
                   style={{ textDecoration: "none" }}
                 >
-                  <p>ABOUT</p>
+                  <p>About</p>
                 </Link>
                 <Link
                   className="backgroundHoverNavbar"
                   to="/contact"
                   style={{ textDecoration: "none" }}
                 >
-                  <p>CONTACT</p>
+                  <p>Contact</p>
                 </Link>
               </div>
             </div>
           )}
         </div>
+      </div>
+      <div className="flexmedialogos">
+        <FaArtstation
+          className="medialogos"
+          onClick={(e) => {
+            window.open("https://www.artstation.com/jasper_moens", "_blank");
+          }}
+        />
+        <FaInstagram
+          className="medialogos"
+          onClick={(e) => {
+            window.open("https://www.instagram.com/jaspermoens/", "_blank");
+          }}
+        />
+        <FaYoutube
+          className="medialogos"
+          onClick={(e) => {
+            window.open(
+              "https://www.youtube.com/channel/UCxmr6fCjOKCjenO3oNMQvbA/videos",
+              "_blank"
+            );
+          }}
+        />
+        <FaLinkedin
+          className="medialogos"
+          onClick={(e) => {
+            window.open("https://www.linkedin.com/in/jaspermoens/", "_blank");
+          }}
+        />
       </div>
     </div>
   );

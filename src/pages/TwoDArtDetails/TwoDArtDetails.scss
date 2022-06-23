@@ -5,24 +5,22 @@
   left: 300px;
   position: relative;
   justify-content: center;
-  gap: 50px;
   flex-direction: row;
+  gap: 50px;
 }
 .img2ddetails {
   max-width: 100%;
   object-fit: cover !important;
   object-position: center !important;
-  max-height: 70vh;
+  max-height: 80vh;
 }
 .fleximages2D {
   display: flex;
-  flex: 1 1 300px;
-  flex-wrap: wrap;
   justify-content: center;
 }
 .carouselDetail {
-  left: 0 !important;
   width: calc(70% - 35px);
+  left: 0px !important;
 }
 h2 {
   color: #cfccd6;

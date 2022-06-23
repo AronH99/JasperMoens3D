@@ -20,6 +20,8 @@ const ThreeDArt = () => {
   const [counter, setCounter] = useState(0);
   const { name } = useParams();
   const [documentData, setDocumentData] = useState({});
+  const [loadingObject, setLoadingObject] = useState(false);
+  const [loadingText, setLoadingText] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -110,8 +112,20 @@ const ThreeDArt = () => {
                 texPath=""
                 position={{ x: 0, y: 0, z: 0 }}
                 rotation={{ x: 0, y: counter, z: 0 }}
+                onProgress={(e) => {
+                  setLoadingObject(true);
+                }}
+                onLoad={(e) => {
+                  setLoadingObject(false);
+                  setLoadingText(true);
+                }}
               />
-              <p className="text3drender">{documentData?.comment}</p>
+              {loadingObject && (
+                <p className="text3dloading">Loading Object...</p>
+              )}
+              {loadingText && (
+                <p className="text3drender">{documentData?.comment}</p>
+              )}
             </div>
           ))}
       </div>
