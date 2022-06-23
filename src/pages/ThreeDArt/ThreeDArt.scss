@@ -17,6 +17,10 @@
   aspect-ratio: 5/3 !important;
   object-fit: cover !important;
   object-position: center !important;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    transform: scale(1.05);
+  }
 }
 @media screen and (max-width: 1000px) {
   .flex3d {
