@@ -2,6 +2,13 @@ import React, { useRef } from "react";
 import "./contact.scss";
 import NavbarMain from "../../components/navbarMain/NavbarMain";
 import emailjs from "@emailjs/browser";
+import { ToastContainer, toast } from "react-toastify";
+import {
+  FaArtstation,
+  FaInstagram,
+  FaLinkedin,
+  FaYoutube,
+} from "react-icons/fa";
 
 const Contact = () => {
   const form = useRef();
@@ -19,9 +26,13 @@ const Contact = () => {
       .then(
         (result) => {
           console.log(result.text);
+          toast.success("Your email has been send");
         },
         (error) => {
           console.log(error.text);
+          toast.error(
+            "Something went wrong with sending your email, try again or try another medium"
+          );
         }
       );
   };
@@ -29,6 +40,7 @@ const Contact = () => {
   return (
     <>
       <NavbarMain />
+      <ToastContainer />
       <div className="contactContainer">
         <h1 className="kopTitelContact">Contact</h1>
         <p className="shortExplanation">
@@ -50,6 +62,35 @@ const Contact = () => {
           </label>
           <input type="submit" className="submitContact" value="Send" />
         </form>
+        <div className="flexmedialogosContact">
+          <FaArtstation
+            className="medialogos"
+            onClick={(e) => {
+              window.open("https://www.artstation.com/jasper_moens", "_blank");
+            }}
+          />
+          <FaInstagram
+            className="medialogos"
+            onClick={(e) => {
+              window.open("https://www.instagram.com/jaspermoens/", "_blank");
+            }}
+          />
+          <FaYoutube
+            className="medialogos"
+            onClick={(e) => {
+              window.open(
+                "https://www.youtube.com/channel/UCxmr6fCjOKCjenO3oNMQvbA/videos",
+                "_blank"
+              );
+            }}
+          />
+          <FaLinkedin
+            className="medialogos"
+            onClick={(e) => {
+              window.open("https://www.linkedin.com/in/jaspermoens/", "_blank");
+            }}
+          />
+        </div>
       </div>
     </>
   );

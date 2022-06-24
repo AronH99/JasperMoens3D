@@ -104,22 +104,24 @@ const ThreeDArt = () => {
         {totalData &&
           totalData?.map(({ mtl, obj }) => (
             <div key={obj.id} className="flexCanvasAndText">
-              <MTLModel
-                width="750"
-                height="750"
-                src={obj.url}
-                mtl={mtl.url}
-                texPath=""
-                position={{ x: 0, y: 0, z: 0 }}
-                rotation={{ x: 0, y: counter, z: 0 }}
-                onProgress={(e) => {
-                  setLoadingObject(true);
-                }}
-                onLoad={(e) => {
-                  setLoadingObject(false);
-                  setLoadingText(true);
-                }}
-              />
+              <div className="responsiveTest">
+                <MTLModel
+                  width="700"
+                  height="700"
+                  src={obj.url}
+                  mtl={mtl.url}
+                  texPath=""
+                  position={{ x: 0, y: 0, z: 0 }}
+                  rotation={{ x: 0, y: counter, z: 0 }}
+                  onProgress={(e) => {
+                    setLoadingObject(true);
+                  }}
+                  onLoad={(e) => {
+                    setLoadingObject(false);
+                    setLoadingText(true);
+                  }}
+                />
+              </div>
               {loadingObject && (
                 <p className="text3dloading">Loading Object...</p>
               )}

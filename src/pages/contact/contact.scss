@@ -46,26 +46,41 @@
   width: 15vw;
   color: #cfccd6;
   background-color: #ff9505;
+  font-weight: 700;
+  &:hover {
+    background-color: #55868c;
+  }
 }
 .shortExplanation {
   max-width: 40vw;
   font-size: 20px;
   margin-bottom: 2rem;
 }
+.flexmedialogosContact {
+  display: none;
+}
 @media screen and (max-width: 1000px) {
   .contactContainer {
     width: 100%;
     left: 0px;
   }
+  .shortExplanation {
+    max-width: 70vw !important;
+  }
+  .flexmedialogosContact {
+    margin: 3rem 3rem;
+    display: flex;
+    gap: 15px;
+  }
   .inputcontact {
-    width: 50vw;
+    width: 70vw;
   }
   .inputTextArea {
-    width: 50vw;
+    width: 70vw;
   }
   .submitContact {
     padding: 0.5rem;
-    width: 25vw;
+    width: 30vw;
   }
   .shortExplanation {
     max-width: 50vw;

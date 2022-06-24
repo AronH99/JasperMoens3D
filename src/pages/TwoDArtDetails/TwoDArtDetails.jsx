@@ -64,14 +64,14 @@ const TwoDArtDetails = () => {
             {data.length > 1 &&
               data.map(({ id, url }) => (
                 <CCarouselItem key={id}>
-                  <CImage className="img2ddetails" src={url} alt={name} />
+                  <CImage className="carousel2ddetails" src={url} alt={name} />
                 </CCarouselItem>
               ))}
           </CCarousel>
         )}
         {data.length === 1 &&
           data.map(({ id, url }) => (
-            <div key={id} className="fleximages2D">
+            <div key={id} className="fleximages2DDetails">
               <img className="img2ddetails" src={url} alt={name} />
             </div>
           ))}

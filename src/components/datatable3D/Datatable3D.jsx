@@ -52,18 +52,7 @@ const Datatable = () => {
       width: 300,
       renderCell: (params) => {
         if (params.row.name.includes(".obj")) {
-          return (
-            <div className="cellWithObj">
-              <MTLModel
-                width="60"
-                height="50"
-                src={params.row.url}
-                mtl={benchViseMTL}
-                texPath=""
-              />
-              {params.row.name}
-            </div>
-          );
+          return <div className="cellWithObj">{params.row.name}</div>;
         } else if (params.row.name.includes(".mtl")) {
           return <div className="cellWithObj">{params.row.name}</div>;
         } else {
