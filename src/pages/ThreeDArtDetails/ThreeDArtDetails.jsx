@@ -170,13 +170,14 @@ const ThreeJs = () => {
       response.items
         .filter(
           (item) =>
-            (item.name.includes(".png") && item.name.includes(name)) ||
-            (item.name.includes(".jpg") && item.name.includes(name)) ||
-            (item.name.includes(".jpeg") && item.name.includes(name)) ||
-            (item.name.includes(".svg") && item.name.includes(name))
+            (item.name.includes(".png") && !item.name.includes(`${name}2d`)) ||
+            (item.name.includes(".jpg") && !item.name.includes(`${name}2d`)) ||
+            (item.name.includes(".jpeg") && !item.name.includes(`${name}2d`)) ||
+            (item.name.includes(".svg") && !item.name.includes(`${name}2d`))
         )
         .map((item) => {
           getDownloadURL(item).then((url) => {
+            console.log(url);
             setDataTextures((prev) => [
               ...prev,
               { id: nanoid(4), name: item.name, url },
