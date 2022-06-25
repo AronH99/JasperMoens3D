@@ -15,7 +15,7 @@ const Navbar = () => {
     <div className="jm__navbar">
       <div className="jm__navbar-links">
         <div className="jm__navbar-links_logo">
-          <Link to="/" style={{ textDecoration: "none" }}>
+          <Link to="/admin" style={{ textDecoration: "none" }}>
             <img src={logo} alt="" />
           </Link>
         </div>
