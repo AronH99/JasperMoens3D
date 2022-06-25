@@ -1,36 +1,145 @@
 import React, { useState, useEffect } from "react";
+import * as THREE from "three";
+import "./ThreeDArtDetails.scss";
+import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
+import benchVise from "../../objectTest/benchVise.obj";
+import benchVisePNG from "../../objectTest/benchVise.png";
+import { db } from "../../firebase";
+import { doc, getDoc } from "firebase/firestore";
+import { useParams } from "react-router";
+import NavbarMain from "../../components/navbarMain/NavbarMain";
 import { ref, getDownloadURL, listAll } from "firebase/storage";
 import { storage } from "../../firebase";
 import { nanoid } from "nanoid";
-import "./ThreeDArtDetails.scss";
-import NavbarMain from "../../components/navbarMain/NavbarMain";
-import { Tick, MTLModel } from "react-3d-viewer";
-import benchViseMTL from "../../objectTest/benchVise.mtl";
-import { useParams } from "react-router";
-import { Audio } from "react-loader-spinner";
-import { db } from "../../firebase";
-import { doc, getDoc } from "firebase/firestore";
 
-const ThreeDArt = () => {
-  const objectListRef = ref(storage, "3D");
-  const [dataObjects, setDataObjects] = useState([]);
-  const [dataMtls, setDataMtls] = useState([]);
-  const [totalData, setTotalData] = useState([]);
-  const [arrayLength, setArrayLength] = useState();
-  const [counter, setCounter] = useState(0);
+const ThreeJs = () => {
   const { name } = useParams();
+  const [arrayLength, setArrayLength] = useState();
+  const [dataObjects, setDataObjects] = useState([]);
+  const [dataTextures, setDataTextures] = useState([]);
   const [documentData, setDocumentData] = useState({});
-  const [loadingObject, setLoadingObject] = useState(false);
-  const [loadingText, setLoadingText] = useState(false);
+  const [totalData, setTotalData] = useState([]);
+  const objectListRef = ref(storage, "3D");
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCounter(counter + 0.5);
-    }, 5000);
-    return () => {
-      clearInterval(interval);
-    };
-  });
+    if (dataObjects.length > 0 && dataTextures.length > 0) {
+      (async () => {
+        let camera, scene, renderer;
+        let mouseX = 0,
+          mouseY = 0;
+        let windowHalfX = window.innerWidth / 2;
+        let windowHalfY = window.innerHeight / 2;
+        let object;
+
+        function init() {
+          camera = new THREE.PerspectiveCamera(
+            45,
+            window.innerWidth / window.innerHeight,
+            1,
+            2000
+          );
+          camera.position.z = 150;
+
+          // scene
+
+          scene = new THREE.Scene();
+
+          const ambientLight = new THREE.AmbientLight(0xcccccc, 0.4);
+          scene.add(ambientLight);
+
+          const pointLight = new THREE.PointLight(0xffffff, 0.8);
+          camera.add(pointLight);
+          scene.add(camera);
+
+          // manager
+
+          function loadModel() {
+            object.traverse(function (child) {
+              if (child.isMesh) child.material.map = texture;
+            });
+
+            object.position.y = 0;
+            scene.add(object);
+          }
+
+          const manager = new THREE.LoadingManager(loadModel);
+
+          // texture
+
+          const textureLoader = new THREE.TextureLoader(manager);
+
+          const texture = textureLoader.load(
+            `${dataTextures.map((x) => x.url)}`
+          );
+
+          // model
+
+          function onProgress(xhr) {
+            if (xhr.lengthComputable) {
+              const percentComplete = (xhr.loaded / xhr.total) * 100;
+              console.log(
+                "model " + Math.round(percentComplete, 2) + "% downloaded"
+              );
+            }
+          }
+
+          function onError() {}
+
+          const loader = new OBJLoader(manager);
+          loader.load(
+            `${dataObjects.map((x) => x.url)}`,
+            function (obj) {
+              object = obj;
+            },
+            onProgress,
+            onError
+          );
+
+          renderer = new THREE.WebGLRenderer();
+          renderer.setPixelRatio(window.devicePixelRatio);
+          renderer.setSize(window.innerWidth, window.innerHeight);
+
+          document
+            .getElementById("modelHolder")
+            .appendChild(renderer.domElement);
+
+          document.addEventListener("mousemove", onDocumentMouseMove);
+          window.addEventListener("resize", onWindowResize);
+        }
+
+        function onWindowResize() {
+          windowHalfX = window.innerWidth / 2;
+          windowHalfY = window.innerHeight / 2;
+
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
+
+          renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function onDocumentMouseMove(event) {
+          mouseX = (event.clientX - windowHalfX) / 2;
+          mouseY = (event.clientY - windowHalfY) / 2;
+        }
+
+        function animate() {
+          requestAnimationFrame(animate);
+          render();
+        }
+
+        function render() {
+          camera.position.x += (mouseX - camera.position.x) * 0.05;
+          camera.position.y += (-mouseY - camera.position.y) * 0.05;
+
+          camera.lookAt(scene.position);
+
+          renderer.render(scene, camera);
+        }
+        init();
+        animate();
+      })();
+    }
+  }, [dataObjects, dataTextures]);
 
   useEffect(() => {
     listAll(objectListRef).then((response) => {
@@ -38,7 +147,10 @@ const ThreeDArt = () => {
         response.items.filter(
           (item) =>
             (item.name.includes(".obj") && item.name.includes(name)) ||
-            (item.name.includes(".mtl") && item.name.includes(name))
+            (item.name.includes(".png") && item.name.includes(name)) ||
+            (item.name.includes(".jpg") && item.name.includes(name)) ||
+            (item.name.includes(".jpeg") && item.name.includes(name)) ||
+            (item.name.includes(".svg") && item.name.includes(name))
         ).length
       );
       //setting Objects
@@ -54,14 +166,18 @@ const ThreeDArt = () => {
             ]);
           });
         });
-      //setting Mtls
+      //setting textures
       response.items
         .filter(
-          (item) => item.name.includes(".mtl") && item.name.includes(name)
+          (item) =>
+            (item.name.includes(".png") && item.name.includes(name)) ||
+            (item.name.includes(".jpg") && item.name.includes(name)) ||
+            (item.name.includes(".jpeg") && item.name.includes(name)) ||
+            (item.name.includes(".svg") && item.name.includes(name))
         )
         .map((item) => {
           getDownloadURL(item).then((url) => {
-            setDataMtls((prev) => [
+            setDataTextures((prev) => [
               ...prev,
               { id: nanoid(4), name: item.name, url },
             ]);
@@ -70,19 +186,9 @@ const ThreeDArt = () => {
     });
   }, []);
 
-  useEffect(() => {
-    if (dataObjects.length + dataMtls.length === arrayLength) {
-      dataObjects?.map((obj) =>
-        dataMtls?.map((mtl) =>
-          obj.name.slice(0, obj.name.length - 4) ===
-          mtl.name.slice(0, mtl.name.length - 4)
-            ? setTotalData((prev) => [...prev, { mtl, obj }])
-            : null
-        )
-      );
-    }
-  }, [dataMtls, dataObjects]);
+  //totalData
 
+  // comments ophalen
   useEffect(() => {
     if (name) {
       const getDocsFromFireBase = async () => {
@@ -101,38 +207,13 @@ const ThreeDArt = () => {
       <NavbarMain />
       <h2 className="mainName3D">{documentData?.name}</h2>
       <div className="bodyArtwork2">
-        {totalData &&
-          totalData?.map(({ mtl, obj }) => (
-            <div key={obj.id} className="flexCanvasAndText">
-              <div className="responsiveTest">
-                <MTLModel
-                  width="700"
-                  height="700"
-                  src={obj.url}
-                  mtl={mtl.url}
-                  texPath=""
-                  position={{ x: 0, y: 0, z: 0 }}
-                  rotation={{ x: 0, y: counter, z: 0 }}
-                  onProgress={(e) => {
-                    setLoadingObject(true);
-                  }}
-                  onLoad={(e) => {
-                    setLoadingObject(false);
-                    setLoadingText(true);
-                  }}
-                />
-              </div>
-              {loadingObject && (
-                <p className="text3dloading">Loading Object...</p>
-              )}
-              {loadingText && (
-                <p className="text3drender">{documentData?.comment}</p>
-              )}
-            </div>
-          ))}
+        <div className="flexCanvasAndText">
+          <div id="modelHolder"></div>
+          <p className="text3drender">{documentData?.comment}</p>
+        </div>
       </div>
     </>
   );
 };
 
-export default ThreeDArt;
+export default ThreeJs;

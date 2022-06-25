@@ -9452,6 +9452,11 @@
   "resolved" "https://registry.npmjs.org/text-table/-/text-table-0.2.0.tgz"
   "version" "0.2.0"
 
+"three@^0.141.0":
+  "integrity" "sha512-JaSDAPWuk4RTzG5BYRQm8YZbERUxTfTDVouWgHMisS2to4E5fotMS9F2zPFNOIJyEFTTQDDKPpsgZVThKU3pXA=="
+  "resolved" "https://registry.npmjs.org/three/-/three-0.141.0.tgz"
+  "version" "0.141.0"
+
 "three@^0.95.0":
   "integrity" "sha512-vy6jMYs7CDwn47CejYHNi+++OdQue7xGIBhbLfekQ/G6MDxKRm0QB0/xWScz46/JvQAvF6pJAS5Q907l0i5iQA=="
   "resolved" "https://registry.npmjs.org/three/-/three-0.95.0.tgz"

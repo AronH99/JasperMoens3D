@@ -68,6 +68,10 @@
 
   input {
     background-color: transparent;
+    color: white;
+  }
+  textarea {
+    color: white;
   }
   .textareaDescription {
     background-color: black;
@@ -80,5 +84,8 @@
   }
   .css-imf0nl-MuiDataGrid-root {
     border: 1px solid white !important;
+  }
+  .css-1kwdphh-MuiDataGrid-virtualScrollerContent {
+    background-color: black;
   }
 }
