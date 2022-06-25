@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 import DescriptionIcon from "@mui/icons-material/Description";
+import LinkIcon from "@mui/icons-material/Link";
 
 const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
@@ -34,6 +35,12 @@ const Sidebar = () => {
             <li>
               <DescriptionIcon className="icon" />
               <span>Description</span>
+            </li>
+          </Link>
+          <Link to="/admin/addvideo" style={{ textDecoration: "none" }}>
+            <li>
+              <LinkIcon className="icon" />
+              <span>Add Video</span>
             </li>
           </Link>
         </ul>

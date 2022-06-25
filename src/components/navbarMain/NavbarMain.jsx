@@ -44,6 +44,13 @@ const Navbar = () => {
           </Link>
           <Link
             className="backgroundHoverNavbar"
+            to="/videoEditting"
+            style={{ textDecoration: "none" }}
+          >
+            <p>VideoEditting</p>
+          </Link>
+          <Link
+            className="backgroundHoverNavbar"
             to="/about"
             style={{ textDecoration: "none" }}
           >
@@ -94,6 +101,13 @@ const Navbar = () => {
                   style={{ textDecoration: "none" }}
                 >
                   <p>3D</p>
+                </Link>
+                <Link
+                  className="backgroundHoverNavbar"
+                  to="/videoEditting"
+                  style={{ textDecoration: "none" }}
+                >
+                  <p>VideoEditting</p>
                 </Link>
                 <Link
                   className="backgroundHoverNavbar"

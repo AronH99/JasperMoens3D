@@ -19,6 +19,7 @@ import VideoEditing from "./pages/videoEditing/VideoEditing";
 import Detail3D from "./pages/Detail3D/Detail3D";
 import Detail2D from "./pages/Detail2D/Detail2D";
 import Description from "./pages/Description/Description";
+import AddVideos from "./pages/addVideos/AddVideos";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -37,7 +38,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="2D" element={<TwoDArt />} />
             <Route path="3D" element={<ThreeDArt />} />
-            <Route path="videoEditing" element={<VideoEditing />} />
+            <Route path="videoEditting" element={<VideoEditing />} />
             <Route path="about" element={<About />} />
             <Route path="contact" element={<Contact />} />
             <Route path="/3D/detail/:name" element={<Detail3D />} />
@@ -89,6 +90,14 @@ function App() {
                 element={
                   <RequireAuth>
                     <Description />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="addvideo"
+                element={
+                  <RequireAuth>
+                    <AddVideos />
                   </RequireAuth>
                 }
               />
