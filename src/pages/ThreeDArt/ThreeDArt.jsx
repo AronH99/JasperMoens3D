@@ -18,10 +18,10 @@ const ThreeDArt = () => {
       response.items
         .filter(
           (item) =>
-            item.name.includes(".png") ||
-            item.name.includes(".jpg") ||
-            item.name.includes(".svg") ||
-            item.name.includes(".jpeg")
+            (item.name.includes(".png") && item.name.includes("2d")) ||
+            (item.name.includes(".jpg") && item.name.includes("2d")) ||
+            (item.name.includes(".svg") && item.name.includes("2d")) ||
+            (item.name.includes(".jpeg") && item.name.includes("2d"))
         )
         .map((item) => {
           getDownloadURL(item).then((url) => {
@@ -43,7 +43,7 @@ const ThreeDArt = () => {
             <div className="fleximages3D" key={id}>
               <NavLink
                 to={`/3D/detail/${name
-                  .slice(0, name.length - 4)
+                  .slice(0, name.length - 5)
                   .replace(/[^a-zA-Z]+/g, "")}`}
               >
                 <img className="img3d" src={url} alt="avatar" />
