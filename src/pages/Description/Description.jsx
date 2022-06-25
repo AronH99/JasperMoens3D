@@ -27,8 +27,8 @@ const Description = () => {
   const [value, setValue] = useState(null);
   const [updateTitle, setUpdateTitle] = useState();
   const [updateDescription, setUpdateDescription] = useState();
-  const [addNewTitle, setAddNewTitle] = useState();
-  const [addNewDescription, setAddNewDescription] = useState();
+  const [addNewTitle, setAddNewTitle] = useState("");
+  const [addNewDescription, setAddNewDescription] = useState("");
   const [submitNewTitle, setSubmitNewTitle] = useState();
   const [submitNewDescription, setSubmitNewDescription] = useState();
   const [triggerSubmit, setTriggerSubmit] = useState(false);
@@ -65,7 +65,13 @@ const Description = () => {
     const getAllDocsFromFireBase = async () => {
       const querySnapshot = await getDocs(collection(db, "JaspiTexts"));
       querySnapshot.forEach((doc) => {
-        setAllOptionsForDocuments((prev) => [...prev, { name: doc.id }]);
+        setAllOptionsForDocuments((prev) => [
+          ...prev,
+          {
+            id: doc.id,
+            name: doc._document.data.value.mapValue.fields.name.stringValue,
+          },
+        ]);
       });
     };
     getAllDocsFromFireBase();
@@ -126,6 +132,8 @@ const Description = () => {
               setSubmitNewDescription(addNewDescription);
               setSubmitNewTitle(addNewTitle);
               setTriggerSubmit(!triggerSubmit);
+              setAddNewDescription("");
+              setAddNewTitle("");
             }}
           >
             <label className="labelDescription">
@@ -138,6 +146,7 @@ const Description = () => {
                 }}
                 placeholder="Give in the right name according to your other
                 file uploads..."
+                value={addNewTitle}
               />
             </label>
             <label className="labelDescription">
@@ -148,6 +157,7 @@ const Description = () => {
                   setAddNewDescription(e.target.value);
                 }}
                 placeholder="Some text about how great Malenia is... :)"
+                value={addNewDescription}
               />
             </label>
             <button type="submit" className="descriptionButton">
@@ -168,7 +178,7 @@ const Description = () => {
                     <TextField {...params} label="Choose" />
                   )}
                   onChange={(event: any, newValue: string | null) => {
-                    setValue(newValue);
+                    setValue(newValue.toLowerCase().trim().replace(/\s+/g, ""));
                   }}
                   className="InputAuto"
                 />

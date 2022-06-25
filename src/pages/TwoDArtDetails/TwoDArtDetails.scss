@@ -60,6 +60,9 @@ h2 {
     max-height: 50vh;
     width: calc(30% - 20px);
   }
+  .commentaarData::-webkit-scrollbar {
+    display: none;
+  }
   .carouselDetail {
     width: calc(70% - 20px);
   }
