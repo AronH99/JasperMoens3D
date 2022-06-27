@@ -5,7 +5,6 @@ import {
   VerticalTimeline,
   VerticalTimelineElement,
 } from "react-vertical-timeline-component";
-import "react-vertical-timeline-component/style.min.css";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
 import jaspi from "../../bioimage/jaspi.jpg";
 
@@ -19,13 +18,21 @@ const About = () => {
           <img src={jaspi} alt="Jasper" className="bioimg" />
           <p className="biodescription">
             <h3 className="biotitle">Bio</h3>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nihil
-            nobis, deserunt adipisci accusamus quo ut alias delectus architecto
-            dolorem placeat illum debitis provident dolor, optio cupiditate
-            corrupti eligendi, labore aut. Hic eos sed delectus dolorem tenetur
-            aut, possimus accusamus non dicta repellendus quidem perferendis
-            maxime vel provident expedita unde asperiores eaque, repudiandae
-            tempore, aliquam odio corporis a! Totam, aspernatur minus?
+            Im digital artist specialized in 3d art and environment creation.
+            Bringing my imagination to reality is something what fascinate me so
+            much, this let me into art. After following 12 years of classes in
+            art academy in my youth I continued this trend by studing the
+            bachelor game graphic productions. Conveying a story throughout a
+            digital art medium is the best there is, using details and all sort
+            of elements to make scenes look interesting and unique. The aim
+            throughout my entire creation proces is always to create the most
+            impressive art possible for the best impression. Letting my
+            creativity loose is also the focus of my other passion, juggling.
+            Having the freedom to develop your own style of movement and
+            juggling excite me. Performing and teaching circus and juggling has
+            given so much unique experiences until i even achieved a juggling
+            world record. Currently following the master game technology to
+            sharpen my 3d art skills even more
           </p>
         </div>
         <VerticalTimeline lineColor="#CFCCD6">
@@ -43,7 +50,7 @@ const About = () => {
             <h4 className="vertical-timeline-element-subtitle">Breda, NL</h4>
             <p>
               Working on my thesis which has become a massive project for
-              Ubisoft (more updates to come :p)...
+              Ubisoft (more updates to come...)
             </p>
           </VerticalTimelineElement>
           <VerticalTimelineElement
@@ -55,7 +62,7 @@ const About = () => {
             icon={<AcUnitIcon />}
           >
             <h3 className="vertical-timeline-element-title">
-              Christmas Video Editting Project for ...
+              Christmas Video Editting Project for Keukens De Abdij
             </h3>
             <h4 className="vertical-timeline-element-subtitle">From home</h4>
             <p>
