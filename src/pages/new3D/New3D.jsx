@@ -70,7 +70,7 @@ const New = ({ inputs, title }) => {
       <div className="newContainer">
         <Navbar />
         <div className="top">
-          <h1>Add 3D Art (.obj + .png/.jpeg/.svg) (2)</h1>
+          <h1>Add 3D Art (.obj + .png/.jpeg/.svg + texture) (3)</h1>
         </div>
         <div className="bottom">
           <div className="right">
