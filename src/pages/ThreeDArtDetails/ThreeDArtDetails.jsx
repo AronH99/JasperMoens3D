@@ -20,6 +20,7 @@ const ThreeJs = () => {
   const [documentData, setDocumentData] = useState({});
   const [totalData, setTotalData] = useState([]);
   const objectListRef = ref(storage, "3D");
+  const [trigger, setTrigger] = useState(false);
 
   useEffect(() => {
     if (dataObjects.length > 0 && dataTextures.length > 0) {
@@ -139,7 +140,7 @@ const ThreeJs = () => {
         animate();
       })();
     }
-  }, [dataObjects, dataTextures]);
+  }, [trigger]);
 
   useEffect(() => {
     listAll(objectListRef).then((response) => {
@@ -170,14 +171,13 @@ const ThreeJs = () => {
       response.items
         .filter(
           (item) =>
-            (item.name.includes(".png") && !item.name.includes(`${name}2d`)) ||
-            (item.name.includes(".jpg") && !item.name.includes(`${name}2d`)) ||
-            (item.name.includes(".jpeg") && !item.name.includes(`${name}2d`)) ||
-            (item.name.includes(".svg") && !item.name.includes(`${name}2d`))
+            (item.name.includes(".png") && item.name.includes(`${name}`)) ||
+            (item.name.includes(".jpg") && item.name.includes(`${name}`)) ||
+            (item.name.includes(".jpeg") && item.name.includes(`${name}`)) ||
+            (item.name.includes(".svg") && item.name.includes(`${name}`))
         )
         .map((item) => {
           getDownloadURL(item).then((url) => {
-            console.log(url);
             setDataTextures((prev) => [
               ...prev,
               { id: nanoid(4), name: item.name, url },
@@ -185,9 +185,13 @@ const ThreeJs = () => {
           });
         });
     });
-  }, []);
+  }, [trigger]);
 
-  //totalData
+  useEffect(() => {
+    if (dataObjects.length > 0 && dataTextures.length > 0) {
+      setTrigger(true);
+    }
+  }, [dataObjects, dataTextures]);
 
   // comments ophalen
   useEffect(() => {
