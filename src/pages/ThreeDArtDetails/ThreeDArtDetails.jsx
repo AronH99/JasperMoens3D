@@ -11,6 +11,7 @@ import NavbarMain from "../../components/navbarMain/NavbarMain";
 import { ref, getDownloadURL, listAll } from "firebase/storage";
 import { storage } from "../../firebase";
 import { nanoid } from "nanoid";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 const ThreeJs = () => {
   const { name } = useParams();
@@ -39,7 +40,7 @@ const ThreeJs = () => {
             1,
             2000
           );
-          camera.position.z = 150;
+          camera.position.z = 100;
 
           // scene
 
@@ -51,6 +52,7 @@ const ThreeJs = () => {
           const pointLight = new THREE.PointLight(0xffffff, 0.8);
           camera.add(pointLight);
           scene.add(camera);
+          scene.background = new THREE.Color("#000000");
 
           // manager
 
@@ -58,8 +60,6 @@ const ThreeJs = () => {
             object.traverse(function (child) {
               if (child.isMesh) child.material.map = texture;
             });
-
-            object.position.y = 0;
             scene.add(object);
           }
 
@@ -100,6 +100,12 @@ const ThreeJs = () => {
           renderer.setPixelRatio(window.devicePixelRatio);
           renderer.setSize(window.innerWidth, window.innerHeight);
 
+          const controls = new OrbitControls(camera, renderer.domElement);
+          controls.target.set(0, 0.5, 0);
+          controls.update();
+          controls.enablePan = false;
+          controls.enableDamping = true;
+
           document
             .getElementById("modelHolder")
             .appendChild(renderer.domElement);
@@ -129,9 +135,6 @@ const ThreeJs = () => {
         }
 
         function render() {
-          camera.position.x += (mouseX - camera.position.x) * 0.05;
-          camera.position.y += (-mouseY - camera.position.y) * 0.05;
-
           camera.lookAt(scene.position);
 
           renderer.render(scene, camera);
